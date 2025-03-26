@@ -6,8 +6,9 @@
     <style>
 
         :root {
-            --standardDistance: max(3mm, 2vmin);
+            --standardDistance: 2vmin;
             --offwhite: #eeeeee;
+            --green: #3f9a29;
         }
 
         * {
@@ -26,21 +27,33 @@
         }
 
         #secondaryButtonsWrapper > div {
-            /*height: 9vh;*/
+            height: 8vmin;
             display: flex;
             flex-direction: row;
             gap: var(--standardDistance);
         }
 
-        button {
+        .button {
             flex-grow: 1;
             border: 0;
             padding: 0;
             border-radius: var(--standardDistance);
         }
 
-        #increment {
-            background-color: #3f9a29;
+        #secondaryButtonsWrapper .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg {
+            fill: var(--offwhite);
+            width: auto;
+        }
+
+        #secondaryButtonsWrapper svg {
+            width: auto;
+            height: 4vmin;
         }
 
         #decrement {
@@ -51,27 +64,42 @@
             background-color: #2080d0;
         }
 
-        button {
-            color: white;
-            display: flex;
-            justify-content: center;
+        #increment {
+            background-color: var(--green);
+            display: grid;
+            grid-template-rows: 1fr auto 1fr;
+            grid-template-columns: auto;
+            justify-items: center;
+            align-items: end;
+            gap: var(--standardDistance);
+            overflow: hidden;
         }
 
-        svg {
-            fill: var(--offwhite);
-            background-color: orange;
+        #historyWrapper{
+            position: relative;
         }
 
         #history {
             list-style-type: none;
             display: flex;
             flex-direction: column-reverse;
-            background-color: hotpink;
             padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background-color:red;
         }
 
-        li{
-            background-color: red;
+        #overlay{
+            position: absolute;
+            background-image: linear-gradient(var(--green), transparent);
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        #increment svg {
+            width: auto;
+            height: 10vmin;
         }
 
     </style>
@@ -79,33 +107,33 @@
 <body>
 <div id="secondaryButtonsWrapper">
     <div>
-        <button id="decrement">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+        <div class="button" id="decrement"> <!-- my buttons must be divs because they include flow content. -->
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"> <!-- svgs must be embedded to be colored with CSS -->
                 <path d="M240-440q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h480q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H240Z"/>
             </svg>
-        </button>
-        <button id="reset">
+        </div>
+        <div class="button" id="reset">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                 <path d="M 480 -800 C 542 -800 598.333 -784 649 -752 C 699.667 -720 738.667 -677.33 766 -624 C 771.333 -614.67 771.667 -604.67 767 -594 C 762.333 -583.33 754.667 -576.33 744 -573 C 734 -569.67 724.167 -569.83 714.5 -573.5 C 704.833 -577.17 697.333 -583.67 692 -593 C 671.333 -631.67 642.167 -662.5 604.5 -685.5 C 566.833 -708.5 525.333 -720 480 -720 C 413.333 -720 356.667 -696.67 310 -650 C 263.333 -603.33 240 -546.67 240 -480 C 240 -413.33 263.333 -356.67 310 -310 C 356.667 -263.33 413.333 -240 480 -240 C 523.333 -240 563.5 -250.67 600.5 -272 C 637.5 -293.33 666.667 -322.67 688 -360 L 560 -360 C 548.667 -360 539.167 -363.83 531.5 -371.5 C 523.833 -379.17 520 -388.67 520 -400 C 520 -411.33 523.833 -420.83 531.5 -428.5 C 539.167 -436.17 548.667 -440 560 -440 L 760 -440 C 771.333 -440 780.833 -436.17 788.5 -428.5 C 796.167 -420.83 800 -411.33 800 -400 L 800 -200 C 800 -188.67 796.167 -179.17 788.5 -171.5 C 780.833 -163.83 771.333 -160 760 -160 C 748.667 -160 739.167 -163.83 731.5 -171.5 C 723.833 -179.17 720 -188.67 720 -200 L 720 -270 C 690 -234.67 654 -207.5 612 -188.5 C 570 -169.5 526 -160 480 -160 C 390.667 -160 315 -191 253 -253 C 191 -315 160 -390.67 160 -480 C 160 -569.33 191 -645 253 -707 C 315 -769 390.667 -800 480 -800 Z"
                       style="transform-box: fill-box; transform-origin: 50% 50%;"
                       transform="matrix(0, -1, 1, 0, -0.000024, -0.000001)"/>
             </svg>
-        </button>
+        </div>
     </div>
 </div>
-<button id="increment">
-    <div>
-        <ul id=history>
+<div class="button" id="increment">
+    <div id="historyWrapper">
+        <ol id="history">
             <li>a</li>
             <li>b</li>
             <li>c</li>
-            <li>d</li>
-            <li>e</li>
-        </ul>
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-            <path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z"/>
-        </svg>
+        </ol>
+        <div id="overlay"> &nbsp; <!-- structural whitespace --></div>
+        <!-- TODO make the overlay overlay the 4th position. Animate the 3rd moving to the 5th. -->
     </div>
-</button>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+        <path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z"/>
+    </svg>
+</div>
 </body>
 </html>
