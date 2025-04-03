@@ -13,7 +13,7 @@
             --red: #e91a24;
             --blue: #2080d0;
             --standardFontSize: 15px;
-            --largeFontSize: 25px;
+            --largeFontSize: 35px;
             --animationDuration: 0.5s;
             --lineHeight: 1.2;
         }
@@ -65,6 +65,8 @@
             border: 0;
             padding: 0;
             border-radius: var(--standardDistance);
+            user-select: none;
+            cursor: pointer;
         }
 
         #secondaryButtonsWrapper .button {
@@ -120,10 +122,10 @@
 
         #overlay {
             position: absolute;
-            background-image: linear-gradient(var(--green), transparent);
             width: 100%;
             top: 0;
             left: 0;
+            background-image: linear-gradient(var(--green), transparent);
         }
 
     </style>
@@ -131,7 +133,8 @@
 <body>
 <div id="secondaryButtonsWrapper">
     <div>
-        <div class="button" id="decrement" onclick="decrement()"> <!-- my buttons must be divs because they include flow content. -->
+        <div class="button" id="decrement" onclick="decrement()">
+            <!-- my buttons must be divs because they include flow content. -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 <!-- svgs must be embedded to be colored with CSS -->
                 <path d="M240-440q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h480q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H240Z"/>
