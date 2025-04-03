@@ -15,28 +15,31 @@
             --standardFontSize: 15px;
             --largeFontSize: 25px;
             --animationDuration: 0.5s;
+            --lineHeight: 1.2;
         }
 
-        .listItemTransitionStart{
-            transition: all 0s;
-            bottom: calc(0 - var(--largeFontSize));
+        .listItemTransitionStart {
+            transition: bottom 0s, opacity 0s, font-size 0s !important;
+            bottom: calc(0px - (var(--largeFontSize) * var(--lineHeight))) !important;
         }
 
-        .secondLastListItemTransitionStart{
-            transition: all 0s;
-            bottom: calc(0 - var(--largeFontSize));
-            opacity: 0;
+        .secondLastListItemTransitionStart {
+            transition: bottom 0s, opacity 0s, font-size 0s !important;
+            bottom: calc(0px - (var(--largeFontSize) * var(--lineHeight))) !important;
+            font-size: var(--largeFontSize);
+            opacity: 1 !important;
         }
 
-        .lastListItemTransitionStart{
-            transition: all 0s;
-            opacity: 1;
+        .lastListItemTransitionStart {
+            transition: bottom 0s, opacity 0s, font-size 0s !important;
+            opacity: 0 !important;
         }
 
         * {
             box-sizing: border-box;
             font-family: Verdana, serif;
             color: var(--offwhite);
+            line-height: var(--lineHeight);
         }
 
         body {
@@ -98,7 +101,6 @@
             padding: 0;
             margin: 0;
             overflow: hidden;
-            background-color: red;
             height: calc(50% + (var(--largeFontSize) / 2)); /* Center the large text. */
         }
 
@@ -106,13 +108,14 @@
             margin: 0 auto;
             position: relative;
             bottom: 0;
-            transition: all 2s;
+            transition: bottom 0.5s, opacity 0.25s, font-size 0.5s;
             opacity: 0.5;
         }
 
         #increment li:last-child {
             font-size: var(--largeFontSize);
             opacity: 1;
+            transition-delay: 0.25s;
         }
 
         #overlay {
@@ -128,7 +131,7 @@
 <body>
 <div id="secondaryButtonsWrapper">
     <div>
-        <div class="button" id="decrement"> <!-- my buttons must be divs because they include flow content. -->
+        <div class="button" id="decrement" onclick="decrement()"> <!-- my buttons must be divs because they include flow content. -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 <!-- svgs must be embedded to be colored with CSS -->
                 <path d="M240-440q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h480q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H240Z"/>
@@ -143,17 +146,13 @@
         </div>
     </div>
 </div>
-<div class="button" id="increment">
+<div class="button" id="increment" onclick="increment()">
     <ol>
-        <li>c</li>
-        <li>b</li>
-        <li>a</li>
-        <li> old count
-            <!--            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">-->
-            <!--                <path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z"/>-->
-            <!--            </svg>-->
+        <li>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                <path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z"/>
+            </svg>
         </li>
-        <li>new count</li>
     </ol>
     <div id="overlay"> &nbsp; <!-- structural whitespace --></div>
 </div>
