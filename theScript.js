@@ -15,6 +15,7 @@ function increment(){
         handleInitialClick(currentTally);
     }
     currentTally.innerHTML = (parseInt(currentTally.innerHTML) + 1).toString();
+    navigator.vibrate(50);
 }
 
 function decrement(){
