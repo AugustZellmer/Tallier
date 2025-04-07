@@ -12,20 +12,22 @@
             --green: #3f9a29;
             --red: #e91a24;
             --blue: #2080d0;
-            --standardFontSize: 15px;
-            --largeFontSize: 35px;
             --animationDuration: 0.5s;
-            --lineHeight: 1.2;
+            --standardFontSize: 50px;
+            --largeFontSize: 120px;
+            --lineHeightRatio: 1.2;
+            --standardLineHeight: calc(var(--standardFontSize) * var(--lineHeightRatio));
+            --largeLineHeight: calc(var(--largeFontSize) * var(--lineHeightRatio));
         }
 
         .listItemTransitionStart {
             transition: bottom 0s, opacity 0s, font-size 0s !important;
-            bottom: calc(0px - (var(--largeFontSize) * var(--lineHeight))) !important;
+            bottom: calc(0px - var(--largeLineHeight)) !important;
         }
 
         .secondLastListItemTransitionStart {
             transition: bottom 0s, opacity 0s, font-size 0s !important;
-            bottom: calc(0px - (var(--largeFontSize) * var(--lineHeight))) !important;
+            bottom: calc(0px - var(--largeLineHeight)) !important;
             font-size: var(--largeFontSize);
             opacity: 1 !important;
         }
@@ -35,11 +37,16 @@
             opacity: 0 !important;
         }
 
+        .hiddenListItem{
+            opacity: 0 !important;
+            bottom: var(--standardLineHeight) !important;
+        }
+
         * {
             box-sizing: border-box;
             font-family: Verdana, serif;
             color: var(--offwhite);
-            line-height: var(--lineHeight);
+            line-height: var(--lineHeightRatio);
         }
 
         body {
@@ -95,6 +102,10 @@
             position: relative;
         }
 
+        #increment svg{
+            padding-top: calc((var(--lineHeightRatio) - 1) * 1em); /* Accounts for the >1 line height. */
+        }
+
         #increment > ol {
             list-style-type: none;
             display: flex;
@@ -103,21 +114,22 @@
             padding: 0;
             margin: 0;
             overflow: hidden;
-            height: calc(50% + (var(--largeFontSize) / 2)); /* Center the large text. */
+            height: calc(50% + (var(--largeLineHeight) / 2)); /* Center the large text. */
         }
 
         #increment li {
             margin: 0 auto;
             position: relative;
             bottom: 0;
-            transition: bottom 0.5s, opacity 0.25s, font-size 0.5s;
+            transition: bottom 0.5s, opacity 0.5s, font-size 0.5s;
             opacity: 0.5;
         }
 
         #increment li:last-child {
             font-size: var(--largeFontSize);
-            opacity: 1;
+            transition: bottom 0.5s, opacity 0.25s, font-size 0.5s;
             transition-delay: 0.25s;
+            opacity: 1;
         }
 
         #overlay {
@@ -125,12 +137,13 @@
             width: 100%;
             top: 0;
             left: 0;
-            background-image: linear-gradient(var(--green), transparent);
+            /*background-image: linear-gradient(var(--green), transparent);*/
+            /*background-color: purple;*/
         }
 
     </style>
 </head>
-<body>
+<body onload="init()">
 <div id="secondaryButtonsWrapper">
     <div>
         <div class="button" id="decrement" onclick="decrement()">
