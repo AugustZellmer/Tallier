@@ -49,8 +49,12 @@
             line-height: var(--lineHeightRatio);
         }
 
+        html{
+            height: 100%; /* Necessary because we can't use 100vh on the body. */
+        }
+
         body {
-            height: 100vh;
+            height: 100%; /* Don't use 100vh. It includes the height of the floating address bar on mobile. https://stackoverflow.com/a/59020698/4493048 */
             display: flex;
             flex-direction: column;
             margin: 0;
