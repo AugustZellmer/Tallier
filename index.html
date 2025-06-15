@@ -74,6 +74,8 @@
             border-radius: var(--standardDistance);
             user-select: none;
             cursor: pointer;
+            touch-action: manipulation; /* This removes double-tap zoom. */
+            -webkit-tap-highlight-color: transparent; /* nonstandard CSS */
         }
 
         #secondaryButtonsWrapper .button {
